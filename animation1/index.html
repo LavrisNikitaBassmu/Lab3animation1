@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лабораторная работа — Анимация котика</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; padding: 30px 18px 45px; background: #090909; color: #f7f7f7; font-family: Arial, Helvetica, sans-serif; }
+    main { width: min(100%, 850px); margin: 0 auto; }
+    h1 { margin: 0 0 10px; font-size: clamp(25px, 4vw, 34px); }
+    .description { margin: 0 0 22px; max-width: 760px; color: #c9c9d0; line-height: 1.6; font-size: 17px; }
+    .scene { width: min(100%, 443px); aspect-ratio: 443 / 467; margin: 0 auto; background: #171717; position: relative; overflow: hidden; border-radius: 3px; }
+    .cat { position: absolute; inset: 0; }
+    .ear { position: absolute; width: 20%; height: 37%; top: 9.5%; background: #fff; }
+    .ear.left { left: 15.5%; border-radius: 80% 30% 8% 3%; transform: rotate(-17deg); transform-origin: bottom right; }
+    .ear.right { right: 13.8%; border-radius: 30% 80% 3% 8%; transform: rotate(17deg); transform-origin: bottom left; }
+    /* Black covers at the bases of the ears give the reference its curved forehead. */
+    .head { position: absolute; background: #171717; width: 67%; height: 44%; top: 31%; left: 17%; border-radius: 48% 48% 42% 42%; }
+    .lash { position: absolute; width: 15px; height: 3px; background: #171717; top: 32%; z-index: 3; }
+    .lash::after { content:""; position:absolute; width: 14px; height: 3px; background: #171717; top: -5px; left: -3px; transform: rotate(47deg); }
+    .lash.left { left: 27.5%; transform: rotate(32deg); }
+    .lash.right { right: 25.5%; transform: rotate(-32deg) scaleX(-1); }
+    .eyes { position: absolute; top: 46.2%; left: 18%; width: 68%; display: flex; align-items: center; justify-content: space-between; z-index: 4; }
+    .eye { position: relative; width: 31%; aspect-ratio: 1.15; background: #fff; border-radius: 50%; transform-origin: center; animation: blink 7s infinite; overflow: hidden; }
+    .eye::after { content:""; position:absolute; width: 8%; height: 8%; border-radius:50%; background: white; right: 0; top: 56%; }
+    .pupil { position: absolute; width: 20%; height: 47%; left: 51%; top: 27%; background: #171717; border-radius: 50%; animation: look 7s infinite; }
+    .pupil::after { content:""; position:absolute; width: 25%; height: 21%; background: #fff; border-radius:50%; top: 22%; right: 5%; }
+    .nose { position: absolute; top: 60.8%; left: 48.5%; width: 7%; height: 3.4%; background: #fff; border-radius: 55% 55% 65% 65%; z-index: 5; }
+    .mouth { position: absolute; top: 73%; left: 45.1%; width: 16%; height: 6.3%; background: #fff; border-radius: 50%; z-index: 5; animation: mouth 7s ease-in-out infinite; }
+    .hint { text-align: center; color: #a8a8b0; font-size: 13px; line-height: 1.5; margin-top: 15px; }
+    @keyframes blink {
+      0%, 9%, 12%, 38%, 41%, 74%, 77%, 100% { transform: scaleY(1); }
+      10.5%, 39.5%, 75.5% { transform: scaleY(0.065); }
+    }
+    @keyframes look {
+      0%, 15%, 18%, 27%, 64%, 100% { transform: translateX(0); }
+      34%, 44% { transform: translateX(-100%); }
+      51%, 61% { transform: translateX(60%); }
+    }
+    @keyframes mouth {
+      0%, 18%, 34%, 50%, 70%, 100% { transform: scale(1, 1); border-radius: 50%; }
+      23%, 29% { transform: scale(.7, 1.6); border-radius: 48%; }
+      57%, 63% { transform: scale(1.25, .4); border-radius: 50%; }
+      81%, 88% { transform: scale(.8, 1.3); border-radius: 50%; }
+    }
+    @media (prefers-reduced-motion: reduce) { .eye, .pupil, .mouth { animation: none; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Анимация 1 — Мордочка котика</h1>
+    <p class="description">Котик моргает, переводит взгляд влево и вправо, возвращается в центр и смешно меняет форму рта. Анимация выполнена только средствами HTML и CSS.</p>
+    <div class="scene" role="img" aria-label="Анимированная мордочка чёрного котика с белыми ушами и глазами, который моргает, смотрит по сторонам и меняет выражение рта">
+      <div class="cat">
+        <div class="ear left"></div><div class="ear right"></div>
+        <div class="head"></div>
+        <div class="lash left"></div><div class="lash right"></div>
+        <div class="eyes">
+          <div class="eye"><div class="pupil"></div></div>
+          <div class="eye"><div class="pupil"></div></div>
+        </div>
+        <div class="nose"></div><div class="mouth"></div>
+      </div>
+    </div>
+    <p class="hint">Анимация повторяется автоматически каждые 7 секунд.</p>
+  </main>
+</body>
+</html>
